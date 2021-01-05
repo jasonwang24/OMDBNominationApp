@@ -1,15 +1,20 @@
 import { Box, Grid } from "@material-ui/core";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SearchBar from "../components/SearchBar";
 import SearchResults from "../components/SearchResults";
+import { Movie } from "../services/types";
 
 const SearchPage = () => {
+  const [searchResultDisplay, setSearchResultDisplay] = useState("");
+  const [searchResults, setSearchResults] = useState<Movie[]>([]);
+  const [nominationList, setNominationList] = useState<Set<Movie>>(new Set());
+
   return (
     <Box
       style={{
         backgroundColor: "#f4e3c6ff",
         height: "100vh",
-        overflow: "hidden",
+        overflowX: "hidden",
       }}
     >
       <Grid container spacing={2}>
@@ -24,10 +29,18 @@ const SearchPage = () => {
           </div>
         </Grid>
         <Grid item xs={12}>
-          <SearchBar />
+          <SearchBar
+            setSearchResultDisplay={setSearchResultDisplay}
+            setSearchResults={setSearchResults}
+          />
         </Grid>
         <Grid item xs={6}>
-          <SearchResults />
+          <SearchResults
+            searchResultDisplay={searchResultDisplay}
+            searchResults={searchResults}
+            nominationList={nominationList}
+            setNominationList={setNominationList}
+          />
         </Grid>
         <Grid item xs={6}></Grid>
       </Grid>

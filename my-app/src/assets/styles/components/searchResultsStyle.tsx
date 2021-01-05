@@ -14,6 +14,10 @@ const SearchResultsStyle = makeStyles(() =>
       marginRight: "2%",
       marginTop: "1%",
     },
+    formControl: {
+      minWidth: 120,
+      margin: 15,
+    },
   })
 );
 

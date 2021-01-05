@@ -5,12 +5,23 @@ import {
   Paper,
   TextField,
 } from "@material-ui/core";
-import { Movie, Search } from "@material-ui/icons";
+import { MovieCreation, Search } from "@material-ui/icons";
 import React, { useCallback, useEffect, useState } from "react";
 import useSearchBarStyle from "../assets/styles/components/searchBarStyle";
 import { searchServer } from "../services";
+import { Movie } from "../services/types";
 
-const SearchBar = () => {
+const SearchBar = ({
+  setSearchResultDisplay,
+  setSearchResults,
+}: {
+  setSearchResultDisplay: (
+    searchResultDisplay: string | ((prevState: string) => string)
+  ) => void;
+  setSearchResults: (
+    searchResults: Movie[] | ((prevState: Movie[]) => Movie[])
+  ) => void;
+}) => {
   const [searchString, setSearchString] = useState("");
   const [searchYear, setSearchYear] = useState("");
   const classes = useSearchBarStyle();
@@ -24,28 +35,33 @@ const SearchBar = () => {
         } else {
           listOfWords[i] = listOfWords[i]
             .replace(`(${searchYear})`, "")
-            .replace(/\n/g, "");
+            .replace(/(\r\n|\n|\r)/gm, "");
         }
       }
-      await searchServer.movieSearchService.getMovies(
-        searchYear !== ""
-          ? {
-              s: listOfWords.join(" "),
-              y: searchYear,
-            }
-          : { s: searchString }
+      if (listOfWords[listOfWords.length - 1] === "") {
+        listOfWords.pop();
+      }
+      setSearchResults(
+        await searchServer.movieSearchService.searchMovies(
+          searchYear !== ""
+            ? {
+                s: listOfWords.join(" "),
+                y: searchYear,
+              }
+            : { s: searchString }
+        )
       );
     } catch (error) {
     } finally {
+      setSearchResultDisplay(searchString);
       setSearchString("");
       setSearchYear("");
     }
-  }, [searchString, searchYear]);
+  }, [searchString, searchYear, setSearchResultDisplay, setSearchResults]);
 
   useEffect(() => {
     const handleEnter = (e: KeyboardEvent) => {
       if (e.key === "Enter") {
-        setSearchString((prevState) => prevState.slice(0, -1));
         handleSearch();
       }
     };
@@ -64,8 +80,8 @@ const SearchBar = () => {
       <Box style={{ display: "flex", justifyContent: "space-around" }}>
         <TextField
           autoFocus
+          autoComplete="off"
           className={classes.textField}
-          multiline
           id="search-bar"
           label="Search Movie Title (e.g. The Matrix (1999))"
           value={searchString}
@@ -73,7 +89,7 @@ const SearchBar = () => {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <Movie />
+                <MovieCreation />
               </InputAdornment>
             ),
           }}

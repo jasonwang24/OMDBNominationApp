@@ -1,5 +1,5 @@
 export interface MovieSearchInterface {
-  getMovies(filterOptions: FilterMovieOptions): Promise<any>;
+  searchMovies(filterOptions: FilterMovieOptions): Promise<any>;
 }
 
 export interface SearchServerInterface {

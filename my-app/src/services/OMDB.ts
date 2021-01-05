@@ -10,7 +10,7 @@ export class OMDBService implements MovieSearchInterface {
     this.apiInstance = apiInstance;
   }
 
-  async getMovies(filterOptions: FilterMovieOptions): Promise<any> {
+  async searchMovies(filterOptions: FilterMovieOptions): Promise<any> {
     let queryString = "&";
     queryString += Object.entries(filterOptions)
       .map(([parameter, value]) => (value ? `${parameter}=${value}` : ""))
