@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { CssBaseline } from "@material-ui/core";
+import { ThemeProvider } from "@material-ui/core/styles";
+import React, { Suspense, useMemo } from "react";
+import usePageStyles from "./assets/styles/views/pageStyle";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import theme from "./assets/theme";
+import LoadingAnimation from "./components/LoadingAnimation";
+import SearchPage from "./views/SearchPage";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+const App: React.FC = () => {
+  const classes = usePageStyles();
+
+  return useMemo(
+    () => (
+      <div className={classes.mainPanel}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Router>
+            <Suspense fallback={<LoadingAnimation />}>
+              <Switch>
+                <Route exact path="/">
+                  <SearchPage />
+                </Route>
+              </Switch>
+            </Suspense>
+          </Router>
+        </ThemeProvider>
+      </div>
+    ),
+    [classes]
   );
-}
+};
 
 export default App;
