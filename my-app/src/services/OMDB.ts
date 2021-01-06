@@ -1,7 +1,11 @@
 import { AxiosInstance } from "axios";
 import { ENDPOINTS } from "./constants";
-import { deserializeMovies } from "./serializers";
-import { FilterMovieOptions, MovieSearchInterface } from "./types";
+import { deserializeMovieInfo } from "./serializers";
+import {
+  FilterMovieInfoOptions,
+  FilterMovieOptions,
+  MovieSearchInterface,
+} from "./types";
 
 export class OMDBService implements MovieSearchInterface {
   private apiInstance: AxiosInstance;
@@ -17,6 +21,12 @@ export class OMDBService implements MovieSearchInterface {
       .join("&");
     const endpoint = `${ENDPOINTS.OMDBSEARCH}${queryString}`;
     const resp = await this.apiInstance.get(endpoint);
-    return deserializeMovies(resp);
+    return resp.data;
+  }
+
+  async getMovieInfo(filterOptions: FilterMovieInfoOptions): Promise<any> {
+    const endpoint = `${ENDPOINTS.OMDBSEARCHMOVIEINFO}&i=${filterOptions.i}`;
+    const resp = await this.apiInstance.get(endpoint);
+    return deserializeMovieInfo(resp);
   }
 }

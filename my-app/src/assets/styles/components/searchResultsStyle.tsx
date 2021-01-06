@@ -4,7 +4,7 @@ const SearchResultsStyle = makeStyles(() =>
   createStyles({
     searchPaper: {
       display: "flex",
-      overflow: "hidden",
+      overflowY: "auto",
       flexDirection: "column",
       fontSize: "large",
       boxShadow: "1",
@@ -15,7 +15,7 @@ const SearchResultsStyle = makeStyles(() =>
       marginTop: "1%",
     },
     formControl: {
-      minWidth: 120,
+      minWidth: 100,
       margin: 15,
     },
   })

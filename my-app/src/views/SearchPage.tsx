@@ -1,13 +1,15 @@
 import { Box, Grid } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import NominationList from "../components/NominationList";
 import SearchBar from "../components/SearchBar";
 import SearchResults from "../components/SearchResults";
 import { Movie } from "../services/types";
 
 const SearchPage = () => {
   const [searchResultDisplay, setSearchResultDisplay] = useState("");
-  const [searchResults, setSearchResults] = useState<Movie[]>([]);
+  const [searchedMoviesInfo, setSearchedMoviesInfo] = useState<Movie[]>([]);
   const [nominationList, setNominationList] = useState<Set<Movie>>(new Set());
+  const [noResult, setNoResults] = useState(false);
 
   return (
     <Box
@@ -31,18 +33,23 @@ const SearchPage = () => {
         <Grid item xs={12}>
           <SearchBar
             setSearchResultDisplay={setSearchResultDisplay}
-            setSearchResults={setSearchResults}
+            searchedMoviesInfo={searchedMoviesInfo}
+            setSearchedMoviesInfo={setSearchedMoviesInfo}
+            setNoResults={setNoResults}
           />
         </Grid>
         <Grid item xs={6}>
           <SearchResults
             searchResultDisplay={searchResultDisplay}
-            searchResults={searchResults}
+            searchedMoviesInfo={searchedMoviesInfo}
             nominationList={nominationList}
             setNominationList={setNominationList}
+            noResult={noResult}
           />
         </Grid>
-        <Grid item xs={6}></Grid>
+        <Grid item xs={6}>
+          <NominationList nominationList={nominationList} />
+        </Grid>
       </Grid>
     </Box>
   );

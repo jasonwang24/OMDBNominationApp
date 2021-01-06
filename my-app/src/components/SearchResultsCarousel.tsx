@@ -19,11 +19,11 @@ import {
 import FullScreenView from "./FullScreenView";
 
 const SearchResultsCarousel = ({
-  searchResults,
+  searchedMoviesInfo,
   nominationList,
   setNominationList,
 }: {
-  searchResults: Movie[];
+  searchedMoviesInfo: Movie[];
   nominationList: Set<Movie>;
   setNominationList: (
     nominationList: Set<Movie> | ((prevState: Set<Movie>) => Set<Movie>)
@@ -43,7 +43,7 @@ const SearchResultsCarousel = ({
     switch (direction) {
       case SelectDirection.Right:
         setSelectedIndex((prev) =>
-          prev < searchResults.length - 1 ? prev + 1 : prev
+          prev < searchedMoviesInfo.length - 1 ? prev + 1 : prev
         );
         break;
       case SelectDirection.Left:
@@ -64,7 +64,7 @@ const SearchResultsCarousel = ({
   };
 
   const searchResultsView =
-    searchResults.length > 0 ? (
+    searchedMoviesInfo.length > 0 ? (
       <>
         <IconButton
           size="small"
@@ -76,28 +76,43 @@ const SearchResultsCarousel = ({
         </IconButton>
         <img
           src={
-            searchResults[selectedIndex].poster &&
-            searchResults[selectedIndex].poster !== "N/A"
-              ? searchResults[selectedIndex].poster
+            searchedMoviesInfo[selectedIndex] &&
+            searchedMoviesInfo[selectedIndex].poster !== "N/A"
+              ? searchedMoviesInfo[selectedIndex].poster
               : "/images/image_placeholder.jpg"
           }
           className={isFullscreen ? classes.mediaFullscreen : classes.media}
           alt=""
         />
-        <Box className={classes.filmInfo}>
-          <Typography
-            className={classes.filmText}
-            style={{ marginBottom: "5%" }}
-          >
-            Title: {searchResults[selectedIndex].title}
-          </Typography>
-          <Typography className={classes.filmText}>
-            Year: {searchResults[selectedIndex].year}
-          </Typography>
-        </Box>
+        {searchedMoviesInfo[selectedIndex] && (
+          <Box className={classes.filmInfo}>
+            <Typography className={classes.filmText}>
+              Title: {searchedMoviesInfo[selectedIndex].title}
+            </Typography>
+            <Typography className={classes.filmText}>
+              Genre: {searchedMoviesInfo[selectedIndex].genre}
+            </Typography>
+            <Typography className={classes.filmText}>
+              Year: {searchedMoviesInfo[selectedIndex].year}
+            </Typography>
+            <Typography className={classes.filmText}>
+              Director: {searchedMoviesInfo[selectedIndex].director}
+            </Typography>
+            <Typography className={classes.filmText}>
+              IMDb Rating: {searchedMoviesInfo[selectedIndex].imdbRating}
+            </Typography>
+          </Box>
+        )}
+        {searchedMoviesInfo[selectedIndex] && isFullscreen && (
+          <Box className={classes.filmPlot}>
+            <Typography className={classes.filmText}>
+              Plot: {searchedMoviesInfo[selectedIndex].plot}
+            </Typography>
+          </Box>
+        )}
         <IconButton
           size="small"
-          disabled={selectedIndex === searchResults.length - 1}
+          disabled={selectedIndex === searchedMoviesInfo.length - 1}
           className={classes.overlayRight}
           onClick={() => handleTraverseImages(SelectDirection.Right)}
         >
@@ -114,11 +129,11 @@ const SearchResultsCarousel = ({
               isFullscreen ? classes.gridListFullScreen : classes.gridList
             }
             cols={
-              isFullscreen ? window.innerWidth / (0.15 * window.innerHeight) : 5
+              isFullscreen ? window.innerWidth / (0.15 * window.innerHeight) : 6
             }
-            cellHeight={isFullscreen ? 0.15 * window.innerHeight : 200}
+            cellHeight={isFullscreen ? 0.15 * window.innerHeight : 180}
           >
-            {searchResults.map((movie: Movie, index: number) => (
+            {searchedMoviesInfo.map((movie: Movie, index: number) => (
               <GridListTile
                 key={movie.id}
                 onClick={() => setSelectedIndex(index)}
@@ -138,35 +153,37 @@ const SearchResultsCarousel = ({
                 />
                 <GridListTileBar
                   title={movie.title}
+                  key={movie.id}
                   titlePosition="top"
                   actionIcon={
                     <IconButton
                       aria-label={`star ${movie.title}`}
                       className={classes.icon}
-                      disabled={nominationList.size === 5}
                       onClick={() => {
-                        if (nominationList.size <= 5) {
-                          if (isNominated(nominationList, movie.id)) {
-                            setNominationList((prevState) => {
-                              let addedMovies = new Set<Movie>();
-                              prevState.forEach((movie: Movie) => {
-                                addedMovies.add(movie);
-                              });
-                              addedMovies.delete(movie);
-                              return addedMovies;
-                            });
-                          } else {
-                            setNominationList((prevState) => {
-                              let addedMovies = new Set<Movie>();
-                              prevState.forEach((movie: Movie) => {
-                                addedMovies.add(movie);
-                              });
+                        if (
+                          nominationList.size < 5 &&
+                          !isNominated(nominationList, movie.id)
+                        ) {
+                          setNominationList((prevState) => {
+                            let addedMovies = new Set<Movie>();
+                            prevState.forEach((movie: Movie) => {
                               addedMovies.add(movie);
-                              return addedMovies;
                             });
-                          }
+                            addedMovies.add(movie);
+                            return addedMovies;
+                          });
+                        } else if (isNominated(nominationList, movie.id)) {
+                          setNominationList((prevState) => {
+                            const oldNominationList = Array.from(prevState);
+                            let newNominationList = new Set<Movie>();
+                            for (let i = 0; i < oldNominationList.length; i++) {
+                              if (oldNominationList[i].id !== movie.id) {
+                                newNominationList.add(oldNominationList[i]);
+                              }
+                            }
+                            return newNominationList;
+                          });
                         }
-                        console.log(nominationList);
                       }}
                     >
                       {isNominated(nominationList, movie.id) ? (
@@ -186,7 +203,7 @@ const SearchResultsCarousel = ({
       </>
     ) : null;
 
-  return searchResults.length > 0 ? (
+  return searchedMoviesInfo.length > 0 ? (
     <>
       <Box className={classes.card}>
         {searchResultsView}

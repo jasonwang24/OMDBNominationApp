@@ -6,17 +6,19 @@ import { Movie } from "../services/types";
 import SearchResultsCarousel from "./SearchResultsCarousel";
 
 const SearchResults = ({
-  searchResults,
+  searchedMoviesInfo,
   searchResultDisplay,
   nominationList,
   setNominationList,
+  noResult,
 }: {
-  searchResults: Movie[] | undefined;
+  searchedMoviesInfo: Movie[] | undefined;
   searchResultDisplay: string;
   nominationList: Set<Movie>;
   setNominationList: (
     nominationList: Set<Movie> | ((prevState: Set<Movie>) => Set<Movie>)
   ) => void;
+  noResult: boolean;
 }) => {
   const classes = useSearchResultsStyle();
 
@@ -41,11 +43,11 @@ const SearchResults = ({
         >
           <Typography
             style={{
-              margin: "4%",
+              margin: "3%",
               fontSize: theme.typography.h1.fontSize,
               display: "inline-block",
-              marginRight: "1%",
-              marginBottom: "2%",
+              marginRight: 5,
+              marginBottom: "1%",
             }}
           >
             Search results for:
@@ -68,12 +70,22 @@ const SearchResults = ({
           required
           className={classes.formControl}
         >
-          {searchResults && (
+          {searchedMoviesInfo && !noResult ? (
             <SearchResultsCarousel
-              searchResults={searchResults}
+              searchedMoviesInfo={searchedMoviesInfo}
               nominationList={nominationList}
               setNominationList={setNominationList}
             />
+          ) : (
+            <Typography
+              style={{
+                margin: "2%",
+                fontSize: theme.typography.h2.fontSize,
+                fontStyle: "italic",
+              }}
+            >
+              Your search did not match any movies in the database...
+            </Typography>
           )}
         </FormControl>
       </Box>

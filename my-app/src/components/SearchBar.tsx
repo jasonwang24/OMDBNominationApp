@@ -9,17 +9,24 @@ import { MovieCreation, Search } from "@material-ui/icons";
 import React, { useCallback, useEffect, useState } from "react";
 import useSearchBarStyle from "../assets/styles/components/searchBarStyle";
 import { searchServer } from "../services";
+import { deserializeMovieIds } from "../services/serializers";
 import { Movie } from "../services/types";
 
 const SearchBar = ({
   setSearchResultDisplay,
-  setSearchResults,
+  searchedMoviesInfo,
+  setSearchedMoviesInfo,
+  setNoResults,
 }: {
   setSearchResultDisplay: (
     searchResultDisplay: string | ((prevState: string) => string)
   ) => void;
-  setSearchResults: (
+  searchedMoviesInfo: Movie[];
+  setSearchedMoviesInfo: (
     searchResults: Movie[] | ((prevState: Movie[]) => Movie[])
+  ) => void;
+  setNoResults: (
+    noResults: boolean | ((prevState: boolean) => boolean)
   ) => void;
 }) => {
   const [searchString, setSearchString] = useState("");
@@ -28,6 +35,7 @@ const SearchBar = ({
 
   const handleSearch = useCallback(async () => {
     try {
+      setSearchedMoviesInfo([]);
       let listOfWords = searchString.split(" ");
       for (let i = 0; i < listOfWords.length; i++) {
         if (listOfWords[i] === `(${searchYear})`) {
@@ -41,15 +49,28 @@ const SearchBar = ({
       if (listOfWords[listOfWords.length - 1] === "") {
         listOfWords.pop();
       }
-      setSearchResults(
-        await searchServer.movieSearchService.searchMovies(
-          searchYear !== ""
-            ? {
-                s: listOfWords.join(" "),
-                y: searchYear,
-              }
-            : { s: searchString }
-        )
+
+      let newSearchResults = await searchServer.movieSearchService.searchMovies(
+        searchYear !== ""
+          ? {
+              s: listOfWords.join(" "),
+              y: searchYear,
+            }
+          : { s: searchString }
+      );
+      if (newSearchResults.Response === "False") {
+        setNoResults(true);
+      } else {
+        newSearchResults = deserializeMovieIds(newSearchResults);
+        setNoResults(false);
+      }
+      await Promise.all(
+        newSearchResults.map(async (id: string) => {
+          const movieInfo = await searchServer.movieSearchService.getMovieInfo({
+            i: id,
+          });
+          setSearchedMoviesInfo((prevState) => [...prevState, movieInfo]);
+        })
       );
     } catch (error) {
     } finally {
@@ -57,7 +78,13 @@ const SearchBar = ({
       setSearchString("");
       setSearchYear("");
     }
-  }, [searchString, searchYear, setSearchResultDisplay, setSearchResults]);
+  }, [
+    searchString,
+    searchYear,
+    setSearchResultDisplay,
+    setSearchedMoviesInfo,
+    setNoResults,
+  ]);
 
   useEffect(() => {
     const handleEnter = (e: KeyboardEvent) => {

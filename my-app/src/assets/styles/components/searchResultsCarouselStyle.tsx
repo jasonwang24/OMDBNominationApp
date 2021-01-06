@@ -6,16 +6,41 @@ interface CarouselProps {
 
 const useStyles = makeStyles<Theme, CarouselProps>((theme) => ({
   filmText: {
-    fontSize: theme.typography.h2.fontSize,
+    fontSize: (props) =>
+      props.isFullscreen
+        ? theme.typography.h2.fontSize
+        : theme.typography.h4.fontSize,
     color: "white",
+    lineHeight: 1.5,
+    fontFamily: "Georgia",
   },
   filmInfo: {
     position: "absolute",
-    bottom: (props) => (props.isFullscreen ? "80%" : "50%"),
-    transform: "translate(0%, 50%)",
-    left: "10%",
-    maxWidth: "20%",
-    textAlign: "center",
+    maxWidth: "30%",
+    textAlign: "left",
+    top: "25%",
+    left: "5%",
+    lineHeight: "100%",
+    alignItems: "center",
+    marginTop: "auto",
+    marginBottom: "auto",
+    border: "solid",
+    borderColor: "white",
+    padding: "1%",
+  },
+  filmPlot: {
+    position: "absolute",
+    maxWidth: "25%",
+    textAlign: "left",
+    top: "25%",
+    right: "5%",
+    lineHeight: "100%",
+    alignItems: "center",
+    marginTop: "auto",
+    marginBottom: "auto",
+    border: "solid",
+    borderColor: "white",
+    padding: "1%",
   },
   overlayLeft: {
     position: "absolute",

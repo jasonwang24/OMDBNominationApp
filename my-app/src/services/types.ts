@@ -1,5 +1,6 @@
 export interface MovieSearchInterface {
   searchMovies(filterOptions: FilterMovieOptions): Promise<any>;
+  getMovieInfo(filterOptions: FilterMovieInfoOptions): Promise<any>;
 }
 
 export interface SearchServerInterface {
@@ -11,10 +12,17 @@ export interface FilterMovieOptions {
   y?: string;
 }
 
+export interface FilterMovieInfoOptions {
+  i: string;
+}
+
 export interface Movie {
   poster: string;
   title: string;
-  type: string;
+  genre: string;
+  director: string;
   year: string;
+  imdbRating: string;
+  plot: string;
   id: string;
 }
