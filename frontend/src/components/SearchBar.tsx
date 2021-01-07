@@ -88,13 +88,13 @@ const SearchBar = ({
 
   useEffect(() => {
     const handleEnter = (e: KeyboardEvent) => {
-      if (e.key === "Enter") {
+      if (e.key === "Enter" && searchString !== "") {
         handleSearch();
       }
     };
     window.addEventListener("keyup", handleEnter);
     return () => window.removeEventListener("keyup", handleEnter);
-  }, [handleSearch]);
+  }, [handleSearch, searchString]);
 
   useEffect(() => {
     const regExp = /\(([^)]+)\)/;
@@ -129,6 +129,7 @@ const SearchBar = ({
             handleSearch();
           }}
           className={classes.searchButton}
+          disabled={searchString === ""}
         >
           <Search />
         </Button>

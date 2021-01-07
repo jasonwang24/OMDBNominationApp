@@ -10,9 +10,12 @@ import NominatedMovieItem from "./NominatedMovieItem";
 const NominationRankings = () => {
   const classes = useNominationRankingsStyle();
 
-  const { data: rankings, isValidating: isLoading, error } = useSWR(
-    [SWRKeys.RANKINGS],
-    () => movieServer.nominationService.getRankings()
+  const {
+    data: rankings,
+    isValidating: isLoading,
+    error,
+  } = useSWR(SWRKeys.RANKINGS, () =>
+    movieServer.nominationService.getRankings()
   );
 
   const topMovies = useMemo(

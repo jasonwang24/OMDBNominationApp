@@ -71,7 +71,14 @@ const SearchPage = () => {
           </Grid>
           <Grid item xs={7} md={2}>
             <Button
-              style={{ marginTop: "10%", right: "-15vh", whiteSpace: "nowrap" }}
+              style={{
+                marginTop: "10%",
+                right: "-15vh",
+                whiteSpace: "nowrap",
+                border: "solid",
+                borderWidth: "thin",
+                borderColor: "grey",
+              }}
               onClick={() => setNominationRankingsOpen(true)}
             >
               Nomination Rankings

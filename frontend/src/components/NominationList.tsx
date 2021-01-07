@@ -31,27 +31,27 @@ const NominationList = ({
   return (
     <Paper className={classes.searchPaper}>
       <Box className={classes.nominationBox}>
-        {nominationList.size === 5 && (
-          <Box style={{ position: "relative", whiteSpace: "nowrap" }}>
-            <Button
-              className={classes.submitButton}
-              onClick={() => setSubmissionDialogOpen((prevState) => !prevState)}
-              style={{ position: "relative" }}
-            >
-              Submit Nominations
-            </Button>
-          </Box>
-        )}
+        <Box style={{ position: "relative", whiteSpace: "nowrap" }}>
+          <Button
+            className={classes.submitButton}
+            onClick={() => setSubmissionDialogOpen((prevState) => !prevState)}
+            style={{ position: "relative" }}
+            disabled={nominationList.size === 0}
+          >
+            Submit Nominations
+          </Button>
+        </Box>
+
         <Box className={classes.boxStyle}>
           <Typography className={classes.title}>Nomination List</Typography>
         </Box>
-        {nominationList.size === 5 && (
-          <Box style={{ position: "relative", whiteSpace: "nowrap" }}>
-            <Typography className={classes.fullText}>
-              *Nomination List Full
-            </Typography>
-          </Box>
-        )}
+        <Box style={{ position: "relative", whiteSpace: "nowrap" }}>
+          <Typography className={classes.fullText}>
+            {nominationList.size === 5
+              ? "*Nomination List Full"
+              : "Select up to 5 movies!"}
+          </Typography>
+        </Box>
       </Box>
       {nominatedMovies.length === 0 ? (
         <Typography className={classes.noneSelectedText}>

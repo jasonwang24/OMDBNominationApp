@@ -11,12 +11,13 @@ const NominationSubmissionStyle = makeStyles((theme: any) =>
       marginLeft: "15%",
       marginRight: "15%",
       marginBottom: "5%",
+      width: "70%",
     },
     button: {
       margin: 10,
     },
     buttonBox: {
-      marginLeft: 35,
+      marginLeft: 85,
     },
     submitText: {
       display: "flex",

@@ -3,7 +3,7 @@ import { Close, Save } from "@material-ui/icons";
 import React, { useCallback, useState } from "react";
 import useNominationSubmissionStyle from "../assets/styles/components/nominationSubmissionStyle";
 import { movieServer } from "../services";
-import { Movie } from "../services/types";
+import { Email, Movie } from "../services/types";
 
 const NominationSubmission = ({
   nominationList,
@@ -21,6 +21,18 @@ const NominationSubmission = ({
   const classes = useNominationSubmissionStyle();
   const [email, setEmail] = useState("");
 
+  const validateEmail = (email: string) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+
+  const emailBody = (nominationList: Set<Movie>) => {
+    let body = "";
+    Array.from(nominationList).forEach((movie) => {
+      body += `${movie.title}, ${movie.year}, ${movie.genre}, ${movie.director}, ${movie.imdbRating}<br />`;
+    });
+    return body;
+  };
+
   const submitNomination = useCallback(async () => {
     try {
       const userExists = await movieServer.nominationService.checkUserExists(
@@ -31,7 +43,7 @@ const NominationSubmission = ({
           "You have already submitted nominations with this email!"
         );
       } else {
-        await movieServer.nominationService.storeUser(email);
+        //await movieServer.nominationService.storeUser(email);
         await Promise.all(
           Array.from(nominationList).map(async (movie: Movie) => {
             await movieServer.nominationService.submitNomination(movie);
@@ -39,6 +51,14 @@ const NominationSubmission = ({
         );
         setSnackbarMessage("Nominations successfully submitted!");
         setSubmissionDialogOpen(false);
+        try {
+          await movieServer.emailService.sendEmail({
+            body: emailBody(nominationList),
+            recipient: email,
+          } as Email);
+        } catch (e) {
+          console.log(e);
+        }
       }
     } catch {
       setSnackbarMessage("There was an error submitting your nominations.");
@@ -46,7 +66,7 @@ const NominationSubmission = ({
   }, [email, nominationList, setSnackbarMessage, setSubmissionDialogOpen]);
 
   return (
-    <Box m={1} width={300} height={180} className={classes.dialogBox}>
+    <Box m={1} width={400} height={180} className={classes.dialogBox}>
       <Typography className={classes.submitText}>Submit Nominations</Typography>
       <TextField
         autoFocus
@@ -65,7 +85,9 @@ const NominationSubmission = ({
           variant="contained"
           color="primary"
           startIcon={<Close />}
-          onClick={() => setSubmissionDialogOpen(false)}
+          onClick={(e) => {
+            setSubmissionDialogOpen(false);
+          }}
         >
           Cancel
         </Button>
@@ -75,7 +97,13 @@ const NominationSubmission = ({
           variant="contained"
           color="secondary"
           startIcon={<Save />}
-          onClick={() => submitNomination()}
+          onClick={() => {
+            if (validateEmail(email)) {
+              submitNomination();
+            } else {
+              setSnackbarMessage("Please enter a valid email!");
+            }
+          }}
         >
           Submit
         </Button>

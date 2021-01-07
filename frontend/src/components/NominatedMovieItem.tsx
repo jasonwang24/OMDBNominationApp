@@ -69,6 +69,7 @@ const NominatedMovieItem = ({
             <Box
               style={{
                 width: "100%",
+                lineHeight: "6px",
               }}
             >
               <Typography component={"span"} className={classes.secondaryText}>
@@ -80,11 +81,15 @@ const NominatedMovieItem = ({
               </Typography>
               <br />
               <Typography component={"span"} className={classes.secondaryText}>
-                {"IMDb Rating: " + nominatedMovie.imdbRating}
+                {"IMDb Rating: " + nominatedMovie.rating}
               </Typography>
               <br />
               <Typography component={"span"} className={classes.secondaryText}>
                 {"Director: " + nominatedMovie.director}
+              </Typography>
+              <br />
+              <Typography component={"span"} className={classes.secondaryText}>
+                {"Number of Votes: " + nominatedMovie.count}
               </Typography>
             </Box>
           }

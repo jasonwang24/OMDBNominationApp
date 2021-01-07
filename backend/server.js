@@ -20,9 +20,12 @@ connection.once('open', () => {
 
 const moviesRouter = require('./routes/movies');
 const usersRouter = require('./routes/users');
+const emailsRouter = require('./routes/emails');
 
 app.use('/movies', moviesRouter);
 app.use('/users', usersRouter);
+app.use('/emails', emailsRouter)
+
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);

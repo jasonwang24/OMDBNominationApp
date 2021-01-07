@@ -5,6 +5,7 @@ export const ENDPOINTS = {
   USERSTORE: "https://omdb-nomination.herokuapp.com/users/add",
   CHECKUSER: "https://omdb-nomination.herokuapp.com/users/checkuser",
   RANKINGS: "https://omdb-nomination.herokuapp.com/movies/top",
+  EMAIL: "https://omdb-nomination.herokuapp.com/emails",
 };
 
 export const SWRKeys = {

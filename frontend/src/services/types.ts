@@ -10,6 +10,10 @@ export interface NominationInterface {
   getRankings(): Promise<any>;
 }
 
+export interface EmailInterface {
+  sendEmail(email: Email): Promise<any>;
+}
+
 export interface SearchServerInterface {
   movieSearchService: MovieSearchInterface;
   nominationService: NominationInterface;
@@ -33,4 +37,9 @@ export interface Movie {
   imdbRating: string;
   plot: string;
   id: string;
+}
+
+export interface Email {
+  body: string;
+  recipient: string;
 }
