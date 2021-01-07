@@ -43,7 +43,7 @@ const NominationSubmission = ({
           "You have already submitted nominations with this email!"
         );
       } else {
-        //await movieServer.nominationService.storeUser(email);
+        await movieServer.nominationService.storeUser(email);
         await Promise.all(
           Array.from(nominationList).map(async (movie: Movie) => {
             await movieServer.nominationService.submitNomination(movie);
