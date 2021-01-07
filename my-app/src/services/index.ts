@@ -1,5 +1,5 @@
-import { SearchServer } from "./SearchServer";
+import { MovieServer } from "./MovieServer";
 
-const searchServer = new SearchServer();
+const movieServer = new MovieServer();
 
-export { searchServer };
+export { movieServer };

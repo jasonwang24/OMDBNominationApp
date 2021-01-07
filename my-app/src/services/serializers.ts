@@ -1,5 +1,17 @@
 import { Movie } from "./types";
 
+export function serializeNomination(moviesObj: Movie) {
+  return {
+    id: moviesObj.id,
+    title: moviesObj.title,
+    year: moviesObj.year,
+    genre: moviesObj.genre,
+    director: moviesObj.director,
+    rating: moviesObj.imdbRating,
+    poster: moviesObj.poster,
+  };
+}
+
 export function deserializeMovieIds(moviesObj: any): string[] {
   return moviesObj.Search.map((movie: any) => movie.imdbID);
 }

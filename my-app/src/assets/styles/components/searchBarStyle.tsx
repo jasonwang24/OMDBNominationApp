@@ -18,6 +18,13 @@ const SearchBarStyle = makeStyles(() =>
       margin: 15,
       width: "100%",
     },
+    searchButton: {
+      position: "relative",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "middle",
+    },
   })
 );
 

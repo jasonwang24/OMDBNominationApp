@@ -12,6 +12,12 @@ export default {
     main: colors.red[800],
     light: colors.red[600],
   },
+  secondary:{
+    contrastText: white,
+    dark: colors.green[900],
+    main: colors.green[800],
+    light: colors.green[600],
+  },
   text: {
     primary: colors.grey[800],
     secondary: colors.grey[700]

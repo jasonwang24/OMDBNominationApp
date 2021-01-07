@@ -8,7 +8,7 @@ const useStyles = makeStyles<Theme, CarouselProps>((theme) => ({
   filmText: {
     fontSize: (props) =>
       props.isFullscreen
-        ? theme.typography.h2.fontSize
+        ? theme.typography.h3.fontSize
         : theme.typography.h4.fontSize,
     color: "white",
     lineHeight: 1.5,
@@ -16,10 +16,10 @@ const useStyles = makeStyles<Theme, CarouselProps>((theme) => ({
   },
   filmInfo: {
     position: "absolute",
-    maxWidth: "30%",
+    maxWidth: (props) => (props.isFullscreen ? "15%" : "30%"),
     textAlign: "left",
     top: "25%",
-    left: "5%",
+    left: "6%",
     lineHeight: "100%",
     alignItems: "center",
     marginTop: "auto",
@@ -30,7 +30,7 @@ const useStyles = makeStyles<Theme, CarouselProps>((theme) => ({
   },
   filmPlot: {
     position: "absolute",
-    maxWidth: "25%",
+    maxWidth: "20%",
     textAlign: "left",
     top: "25%",
     right: "5%",
@@ -42,7 +42,7 @@ const useStyles = makeStyles<Theme, CarouselProps>((theme) => ({
     borderColor: "white",
     padding: "1%",
   },
-  overlayLeft: {
+  leftClick: {
     position: "absolute",
     bottom: (props) => (props.isFullscreen ? "50%" : "25%"),
     left: "5px",
@@ -56,7 +56,7 @@ const useStyles = makeStyles<Theme, CarouselProps>((theme) => ({
       backgroundColor: theme.palette.grey[500],
     },
   },
-  overlayRight: {
+  rightClick: {
     position: "absolute",
     bottom: (props) => (props.isFullscreen ? "50%" : "25%"),
     transform: "translate(0%, 50%)",
@@ -87,25 +87,25 @@ const useStyles = makeStyles<Theme, CarouselProps>((theme) => ({
     width: "100%",
     flexWrap: "nowrap",
   },
-  galleryRoot: {
+  images: {
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "space-around",
     overflow: "hidden",
   },
-  galleryRootFullscreen: {
+  imagesFullScreen: {
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "space-around",
     height: "20%",
   },
-  media: {
+  largeImageView: {
     objectFit: "contain",
     width: "100%",
     height: "30vh",
     backgroundColor: "black",
   },
-  mediaFullscreen: {
+  largeImageViewFullScreen: {
     objectFit: "contain",
     width: "100%",
     height: "80%",
@@ -116,7 +116,7 @@ const useStyles = makeStyles<Theme, CarouselProps>((theme) => ({
     height: "20vh",
     backgroundColor: "black",
   },
-  overlayFullscreen: {
+  fullScreen: {
     position: "absolute",
     top: "7px",
     left: "7px",
@@ -136,14 +136,14 @@ const useStyles = makeStyles<Theme, CarouselProps>((theme) => ({
   icon: {
     color: "#FFDF00",
   },
-  thumbnail: {
+  preview: {
     border: 2,
     borderStyle: "solid",
     borderColor: "white",
     backgroundColor: "black",
     height: "100%",
   },
-  thumbnailSelected: {
+  previewSelected: {
     border: 4,
     borderStyle: "solid",
     borderColor: "#0000ff",

@@ -69,7 +69,7 @@ const SearchResultsCarousel = ({
         <IconButton
           size="small"
           disabled={selectedIndex === 0}
-          className={classes.overlayLeft}
+          className={classes.leftClick}
           onClick={() => handleTraverseImages(SelectDirection.Left)}
         >
           <ArrowBackIos className={classes.backArrow} />
@@ -81,7 +81,11 @@ const SearchResultsCarousel = ({
               ? searchedMoviesInfo[selectedIndex].poster
               : "/images/image_placeholder.jpg"
           }
-          className={isFullscreen ? classes.mediaFullscreen : classes.media}
+          className={
+            isFullscreen
+              ? classes.largeImageViewFullScreen
+              : classes.largeImageView
+          }
           alt=""
         />
         {searchedMoviesInfo[selectedIndex] && (
@@ -113,15 +117,13 @@ const SearchResultsCarousel = ({
         <IconButton
           size="small"
           disabled={selectedIndex === searchedMoviesInfo.length - 1}
-          className={classes.overlayRight}
+          className={classes.rightClick}
           onClick={() => handleTraverseImages(SelectDirection.Right)}
         >
           <ArrowForwardIos />
         </IconButton>
         <div
-          className={
-            isFullscreen ? classes.galleryRootFullscreen : classes.galleryRoot
-          }
+          className={isFullscreen ? classes.imagesFullScreen : classes.images}
         >
           <GridList
             spacing={2}
@@ -139,8 +141,8 @@ const SearchResultsCarousel = ({
                 onClick={() => setSelectedIndex(index)}
                 className={
                   index === selectedIndex
-                    ? classes.thumbnailSelected
-                    : classes.thumbnail
+                    ? classes.previewSelected
+                    : classes.preview
                 }
               >
                 <img
@@ -209,7 +211,7 @@ const SearchResultsCarousel = ({
         {searchResultsView}
         <IconButton
           size="small"
-          className={classes.overlayFullscreen}
+          className={classes.fullScreen}
           onClick={() => setIsFullscreen(true)}
         >
           <Fullscreen />

@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   ListItem,
   ListItemAvatar,
   ListItemText,
@@ -10,7 +11,15 @@ import React from "react";
 import { Movie } from "../services/types";
 import useNominationListItemStyle from "../assets/styles/components/nominationListItemStyle";
 
-const NominationListItem = ({ nominatedMovie }: { nominatedMovie: Movie }) => {
+const NominationListItem = ({
+  nominatedMovie,
+  setNominationList,
+}: {
+  nominatedMovie: Movie;
+  setNominationList: (
+    nominationList: Set<Movie> | ((prevState: Set<Movie>) => Set<Movie>)
+  ) => void;
+}) => {
   const classes = useNominationListItemStyle();
 
   return (
@@ -52,6 +61,23 @@ const NominationListItem = ({ nominatedMovie }: { nominatedMovie: Movie }) => {
           </Box>
         }
       />
+      <Button
+        style={{ height: "100%" }}
+        onClick={() => {
+          setNominationList((prevState) => {
+            const oldNominationList = Array.from(prevState);
+            let newNominationList = new Set<Movie>();
+            for (let i = 0; i < oldNominationList.length; i++) {
+              if (oldNominationList[i].id !== nominatedMovie.id) {
+                newNominationList.add(oldNominationList[i]);
+              }
+            }
+            return newNominationList;
+          });
+        }}
+      >
+        Remove
+      </Button>
     </ListItem>
   );
 };

@@ -5,7 +5,7 @@ import { Box, CircularProgress } from "@material-ui/core";
 function LoadingAnimation() {
   const classes = progressStyle();
   return (
-    <Box paddingLeft="48%" paddingTop="2%">
+    <Box paddingLeft="48%" paddingTop="5%">
       <CircularProgress color="primary" className={classes.loadingProgress} />
     </Box>
   );

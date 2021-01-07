@@ -1,7 +1,6 @@
 import { Box, FormControl, Paper, Typography } from "@material-ui/core";
 import React from "react";
 import useSearchResultsStyle from "../assets/styles/components/searchResultsStyle";
-import theme from "../assets/theme";
 import { Movie } from "../services/types";
 import SearchResultsCarousel from "./SearchResultsCarousel";
 
@@ -41,26 +40,10 @@ const SearchResults = ({
             float: "left",
           }}
         >
-          <Typography
-            style={{
-              margin: "3%",
-              fontSize: theme.typography.h1.fontSize,
-              display: "inline-block",
-              marginRight: 5,
-              marginBottom: "1%",
-            }}
-          >
+          <Typography className={classes.resultText}>
             Search results for:
           </Typography>
-          <Typography
-            style={{
-              fontStyle: "italic",
-              fontSize: theme.typography.h1.fontSize,
-              display: "inline-block",
-              color: theme.palette.primary.main,
-              marginLeft: 0,
-            }}
-          >
+          <Typography className={classes.searchResultText}>
             {searchResultDisplay}
           </Typography>
         </Box>
@@ -77,13 +60,7 @@ const SearchResults = ({
               setNominationList={setNominationList}
             />
           ) : (
-            <Typography
-              style={{
-                margin: "2%",
-                fontSize: theme.typography.h2.fontSize,
-                fontStyle: "italic",
-              }}
-            >
+            <Typography className={classes.noMatchText}>
               Your search did not match any movies in the database...
             </Typography>
           )}

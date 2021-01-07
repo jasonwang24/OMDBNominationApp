@@ -8,7 +8,7 @@ import {
 import { MovieCreation, Search } from "@material-ui/icons";
 import React, { useCallback, useEffect, useState } from "react";
 import useSearchBarStyle from "../assets/styles/components/searchBarStyle";
-import { searchServer } from "../services";
+import { movieServer } from "../services";
 import { deserializeMovieIds } from "../services/serializers";
 import { Movie } from "../services/types";
 
@@ -50,7 +50,7 @@ const SearchBar = ({
         listOfWords.pop();
       }
 
-      let newSearchResults = await searchServer.movieSearchService.searchMovies(
+      let newSearchResults = await movieServer.movieSearchService.searchMovies(
         searchYear !== ""
           ? {
               s: listOfWords.join(" "),
@@ -66,7 +66,7 @@ const SearchBar = ({
       }
       await Promise.all(
         newSearchResults.map(async (id: string) => {
-          const movieInfo = await searchServer.movieSearchService.getMovieInfo({
+          const movieInfo = await movieServer.movieSearchService.getMovieInfo({
             i: id,
           });
           setSearchedMoviesInfo((prevState) => [...prevState, movieInfo]);
@@ -128,13 +128,7 @@ const SearchBar = ({
           onClick={() => {
             handleSearch();
           }}
-          style={{
-            position: "relative",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "middle",
-          }}
+          className={classes.searchButton}
         >
           <Search />
         </Button>
