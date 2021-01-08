@@ -110,6 +110,13 @@ const SearchResultsCarousel = ({
             </Typography>
           </Box>
         )}
+        {searchedMoviesInfo[selectedIndex] && !isFullscreen && !infoOpen && (
+          <Box className={classes.filmInfo}>
+            <Typography className={classes.filmText}>
+              Title: {searchedMoviesInfo[selectedIndex].title}
+            </Typography>
+          </Box>
+        )}
         {searchedMoviesInfo[selectedIndex] && isFullscreen && (
           <Box className={classes.filmPlot}>
             <Typography className={classes.filmText}>
