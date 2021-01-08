@@ -1,6 +1,6 @@
 # OMDBNominationApp
 
-This is a nomination app using the OMDB API to search and save favourite movies built with the MERN stack
+This is a nomination app using the OMDB API to search and save favourite movies built with the MERN stack, hosted with Heroku and Netlify
 
 Demo: https://omdb-nominations.netlify.app/
 
