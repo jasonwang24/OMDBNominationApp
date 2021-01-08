@@ -40,6 +40,8 @@ const NominationSubmissionStyle = makeStyles(() =>
     },
     paper: {
       width: "100%",
+      minWidth: "80vh",
+      minHeight: "80vh",
       display: "flex",
       overflowY: "auto",
       overflowX: "hidden",
@@ -49,6 +51,12 @@ const NominationSubmissionStyle = makeStyles(() =>
       backgroundColor: theme.palette.background.paper,
       marginRight: "6%",
       marginTop: "1%",
+    },
+    infoButton: {
+      position: "absolute",
+      right: "3%",
+      top: "3%",
+      color: theme.palette.text.primary,
     },
   })
 );

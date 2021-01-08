@@ -1,4 +1,12 @@
-import { Box, List, Paper, Typography } from "@material-ui/core";
+import {
+  Box,
+  IconButton,
+  List,
+  Paper,
+  Tooltip,
+  Typography,
+} from "@material-ui/core";
+import { Info } from "@material-ui/icons";
 import React, { useMemo } from "react";
 import useSWR from "swr";
 import useNominationRankingsStyle from "../assets/styles/components/nominationRankingsStyle";
@@ -34,6 +42,12 @@ const NominationRankings = () => {
           Top 5 Nominated Movies
         </Typography>
       </Box>
+      <Tooltip title="Top 5 most voted movies" placement="left">
+        <IconButton size="small" className={classes.infoButton}>
+          <Info />
+        </IconButton>
+      </Tooltip>
+
       {isLoading ? (
         <LoadingAnimation />
       ) : error ? (
