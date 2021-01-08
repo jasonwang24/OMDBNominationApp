@@ -5,6 +5,7 @@ const NominationSubmissionStyle = makeStyles((theme: any) =>
     dialogBox: {
       overflowX: "hidden",
       overflowY: "auto",
+      background: theme.palette.background.paper,
     },
     textField: {
       marginTop: "5%",

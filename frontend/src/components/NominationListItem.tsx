@@ -32,7 +32,12 @@ const NominationListItem = ({
       </ListItemAvatar>
       <img
         src={nominatedMovie.poster}
-        style={{ height: "15vh", marginRight: "5%" }}
+        style={{
+          objectFit: "cover",
+          height: "15vh",
+          width: "12vh",
+          marginRight: "5%",
+        }}
         alt=""
       />
       <ListItemText

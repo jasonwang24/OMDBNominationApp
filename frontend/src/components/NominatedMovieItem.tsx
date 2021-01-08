@@ -9,6 +9,7 @@ import {
 import { Looks3, Looks4, Looks5, LooksOne, LooksTwo } from "@material-ui/icons";
 import React from "react";
 import useNominatedMovieItemStyle from "../assets/styles/components/nominatedMovieItemStyle";
+import theme from "../assets/theme";
 
 const NominatedMovieItem = ({
   nominatedMovie,
@@ -22,30 +23,70 @@ const NominatedMovieItem = ({
   const getColor = (index: number) => {
     switch (index) {
       case 0:
-        return "#B9F2FF";
+        return "#c1f5f0";
       case 1:
-        return "#E5E4E2";
+        return "#cdf7f3";
       case 2:
-        return "#FFD700";
+        return "#d7f9f5";
       case 3:
-        return "#C0C0C0";
+        return "#dffaf7";
       case 4:
-        return "#CD7F32";
+        return "#e5fbf9";
     }
   };
 
   const Icon = ({ index }: { index: number }) => {
     switch (index) {
       case 0:
-        return <LooksOne style={{ fontSize: "40px" }} />;
+        return (
+          <LooksOne
+            style={{
+              fontSize: "40px",
+              color: "#B9F2FF",
+              backgroundColor: theme.palette.text.primary,
+            }}
+          />
+        );
       case 1:
-        return <LooksTwo style={{ fontSize: "40px" }} />;
+        return (
+          <LooksTwo
+            style={{
+              fontSize: "40px",
+              color: "#E5E4E2",
+              backgroundColor: theme.palette.text.primary,
+            }}
+          />
+        );
       case 2:
-        return <Looks3 style={{ fontSize: "40px" }} />;
+        return (
+          <Looks3
+            style={{
+              fontSize: "40px",
+              color: "#FFD700",
+              backgroundColor: theme.palette.text.primary,
+            }}
+          />
+        );
       case 3:
-        return <Looks4 style={{ fontSize: "40px" }} />;
+        return (
+          <Looks4
+            style={{
+              fontSize: "40px",
+              color: "#C0C0C0",
+              backgroundColor: theme.palette.text.primary,
+            }}
+          />
+        );
       default:
-        return <Looks5 style={{ fontSize: "40px" }} />;
+        return (
+          <Looks5
+            style={{
+              fontSize: "40px",
+              color: "#CD7F32",
+              backgroundColor: theme.palette.text.primary,
+            }}
+          />
+        );
     }
   };
 

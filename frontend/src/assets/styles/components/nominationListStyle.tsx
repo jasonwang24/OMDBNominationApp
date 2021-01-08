@@ -12,7 +12,7 @@ const NominationListStyle = makeStyles(() =>
       fontSize: "large",
       boxShadow: "1",
       elevation: 5,
-      backgroundColor: "white",
+      backgroundColor: theme.palette.background.paper,
       marginRight: "6%",
       marginTop: "1%",
     },
@@ -25,13 +25,14 @@ const NominationListStyle = makeStyles(() =>
       marginBottom: "2%",
     },
     title: {
-      color: theme.palette.primary.dark,
+      color: theme.palette.text.primary,
       fontSize: theme.typography.h1.fontSize,
     },
     submitButton: {
       position: "absolute",
       left: 25,
       top: 5,
+      color: theme.palette.text.primary,
       background: "#F0F0F0",
       "&:hover": {
         background: "#a9a9a9",
@@ -44,7 +45,7 @@ const NominationListStyle = makeStyles(() =>
     },
     fullText: {
       position: "relative",
-      color: "red",
+      color: theme.palette.text.primary,
       right: 25,
       top: 5,
     },

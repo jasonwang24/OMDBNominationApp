@@ -1,5 +1,5 @@
 import { Box, Button, List, Paper, Typography } from "@material-ui/core";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import useNominationListStyle from "../assets/styles/components/nominationListStyle";
 import { Movie } from "../services/types";
 import NominationListItem from "./NominationListItem";
@@ -8,6 +8,7 @@ const NominationList = ({
   nominationList,
   setNominationList,
   setSubmissionDialogOpen,
+  setSnackbarMessage,
 }: {
   nominationList: Set<Movie>;
   setNominationList: (
@@ -16,8 +17,18 @@ const NominationList = ({
   setSubmissionDialogOpen: (
     submissionDialogOpen: boolean | ((prevState: boolean) => boolean)
   ) => void;
+  setSnackbarMessage: (
+    snackbarMessage: string | ((prevState: string) => string)
+  ) => void;
 }) => {
   const classes = useNominationListStyle();
+
+  useEffect(() => {
+    if (nominationList.size === 5) {
+      setSnackbarMessage("Nomination list is full");
+    }
+  }, [nominationList, setSnackbarMessage]);
+
   const nominatedMovies = useMemo(
     () =>
       Array.from(nominationList).map((movie: Movie) => (

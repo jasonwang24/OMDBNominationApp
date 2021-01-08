@@ -11,7 +11,7 @@ const NominationSubmissionStyle = makeStyles(() =>
     },
     title: {
       color: theme.palette.primary.main,
-      marginTop: "2%",
+      marginTop: "5%",
       fontSize: theme.typography.h1.fontSize,
     },
     media: {
@@ -27,8 +27,8 @@ const NominationSubmissionStyle = makeStyles(() =>
       fontSize: "12px",
       border: "2px solid #666",
       zIndex: 2,
-      backgroundColor: "red",
-      color: "white",
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.common.white,
       position: "absolute",
     },
     boxStyle: {
@@ -37,6 +37,18 @@ const NominationSubmissionStyle = makeStyles(() =>
       marginLeft: "auto",
       marginRight: "auto",
       marginBottom: "2%",
+    },
+    paper: {
+      width: "100%",
+      display: "flex",
+      overflowY: "auto",
+      overflowX: "hidden",
+      flexDirection: "column",
+      fontSize: "large",
+      boxShadow: "1",
+      backgroundColor: theme.palette.background.paper,
+      marginRight: "6%",
+      marginTop: "1%",
     },
   })
 );

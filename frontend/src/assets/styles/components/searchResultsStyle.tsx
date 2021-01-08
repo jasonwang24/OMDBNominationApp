@@ -10,7 +10,7 @@ const SearchResultsStyle = makeStyles(() =>
       fontSize: "large",
       boxShadow: "1",
       elevation: 5,
-      backgroundColor: "white",
+      backgroundColor: theme.palette.background.paper,
       marginLeft: "6%",
       marginRight: "2%",
       marginTop: "1%",
@@ -23,7 +23,7 @@ const SearchResultsStyle = makeStyles(() =>
       fontStyle: "italic",
       fontSize: theme.typography.h1.fontSize,
       display: "inline-block",
-      color: theme.palette.primary.main,
+      color: theme.palette.text.primary,
       marginLeft: 0,
     },
     resultText: {

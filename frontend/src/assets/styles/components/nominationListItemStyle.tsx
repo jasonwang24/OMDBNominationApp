@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/core";
+import theme from "../../theme";
 
 const useStyles = makeStyles({
   title: {
@@ -11,7 +12,7 @@ const useStyles = makeStyles({
   icon: {
     width: 55,
     height: 55,
-    color: "black",
+    color: theme.palette.common.black,
   },
   annotationList: {
     maxHeight: "100%",

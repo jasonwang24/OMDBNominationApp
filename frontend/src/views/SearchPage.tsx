@@ -7,6 +7,7 @@ import SearchResults from "../components/SearchResults";
 import { Movie } from "../services/types";
 import SnackbarMessage from "../components/Snackbar";
 import NominationRankings from "../components/NominationRankings";
+import usePageStyle from "../assets/styles/views/pageStyle";
 
 const SearchPage = () => {
   const [searchResultDisplay, setSearchResultDisplay] = useState("");
@@ -16,6 +17,7 @@ const SearchPage = () => {
   const [submissionDialogOpen, setSubmissionDialogOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [nominationRankingsOpen, setNominationRankingsOpen] = useState(false);
+  const classes = usePageStyle();
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
@@ -36,7 +38,7 @@ const SearchPage = () => {
       />
       <Box
         style={{
-          backgroundColor: "#f4e3c6ff",
+          backgroundImage: "linear-gradient(to bottom right, #77C9D4, #57BC90)",
           height: "100vh",
           overflowX: "hidden",
         }}
@@ -71,14 +73,7 @@ const SearchPage = () => {
           </Grid>
           <Grid item xs={7} md={2}>
             <Button
-              style={{
-                marginTop: "10%",
-                right: "-15vh",
-                whiteSpace: "nowrap",
-                border: "solid",
-                borderWidth: "thin",
-                borderColor: "grey",
-              }}
+              className={classes.button}
               onClick={() => setNominationRankingsOpen(true)}
             >
               Nomination Rankings
@@ -106,6 +101,7 @@ const SearchPage = () => {
               nominationList={nominationList}
               setNominationList={setNominationList}
               setSubmissionDialogOpen={setSubmissionDialogOpen}
+              setSnackbarMessage={setSnackbarMessage}
             />
           </Grid>
         </Grid>

@@ -13,6 +13,7 @@ import {
   ArrowBackIos,
   ArrowForwardIos,
   Fullscreen,
+  Info,
   Star,
   StarBorder,
 } from "@material-ui/icons";
@@ -31,6 +32,7 @@ const SearchResultsCarousel = ({
 }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [infoOpen, setInfoOpen] = useState(false);
 
   const classes = useSearchResultsCarouselStyle({ isFullscreen: isFullscreen });
 
@@ -88,7 +90,8 @@ const SearchResultsCarousel = ({
           }
           alt=""
         />
-        {searchedMoviesInfo[selectedIndex] && (
+
+        {searchedMoviesInfo[selectedIndex] && (isFullscreen || infoOpen) && (
           <Box className={classes.filmInfo}>
             <Typography className={classes.filmText}>
               Title: {searchedMoviesInfo[selectedIndex].title}
@@ -208,10 +211,19 @@ const SearchResultsCarousel = ({
   return searchedMoviesInfo.length > 0 ? (
     <>
       <Box className={classes.card}>
+        <IconButton
+          className={classes.infoButton}
+          size="small"
+          onMouseEnter={() => setInfoOpen(true)}
+          onMouseLeave={() => setInfoOpen(false)}
+        >
+          <Info />
+        </IconButton>
+
         {searchResultsView}
         <IconButton
           size="small"
-          className={classes.fullScreen}
+          className={classes.fullScreenButton}
           onClick={() => setIsFullscreen(true)}
         >
           <Fullscreen />

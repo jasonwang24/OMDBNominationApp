@@ -19,11 +19,11 @@ export default {
     light: colors.green[600],
   },
   text: {
-    primary: colors.grey[800],
+    primary:"#015249",
     secondary: colors.grey[700]
   },
   background: {
-    default: "#F4F6F8",
-    paper: white,
+    default: "white",
+    paper: "#f2f9f7",
   },
 };

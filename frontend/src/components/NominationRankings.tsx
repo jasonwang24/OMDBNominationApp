@@ -1,4 +1,4 @@
-import { Box, List, Typography } from "@material-ui/core";
+import { Box, List, Paper, Typography } from "@material-ui/core";
 import React, { useMemo } from "react";
 import useSWR from "swr";
 import useNominationRankingsStyle from "../assets/styles/components/nominationRankingsStyle";
@@ -28,26 +28,20 @@ const NominationRankings = () => {
   );
 
   return (
-    <Box m={1} width={750} height={750} className={classes.dialogBox}>
-      <Box
-        style={{
-          position: "absolute",
-        }}
-      >
-        <Box className={classes.boxStyle}>
-          <Typography className={classes.title}>
-            Top 5 Nominated Movies
-          </Typography>
-        </Box>
-        {isLoading ? (
-          <LoadingAnimation />
-        ) : error ? (
-          <Typography>Error loading list...</Typography>
-        ) : (
-          <List>{topMovies}</List>
-        )}
+    <Paper className={classes.paper}>
+      <Box className={classes.boxStyle}>
+        <Typography className={classes.title}>
+          Top 5 Nominated Movies
+        </Typography>
       </Box>
-    </Box>
+      {isLoading ? (
+        <LoadingAnimation />
+      ) : error ? (
+        <Typography>Error loading list...</Typography>
+      ) : (
+        <List>{topMovies}</List>
+      )}
+    </Paper>
   );
 };
 
