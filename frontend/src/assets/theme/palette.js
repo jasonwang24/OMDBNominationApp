@@ -23,7 +23,7 @@ export default {
     secondary: colors.grey[700]
   },
   background: {
-    default: "white",
+    default: white,
     paper: "#f2f9f7",
   },
 };
