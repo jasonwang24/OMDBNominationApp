@@ -2,8 +2,9 @@
 
 This is a nomination app using the OMDB API to search and save favourite movies built with the MERN stack, hosted with Heroku and Netlify
 
-Demo: https://omdb-nominations.netlify.app/
+Try it out here: https://omdb-nominations.netlify.app/
 
+Video Demo: https://drive.google.com/file/d/1KU87cZjkxEzkVT69B7edTVVznuEKTMtj/view?usp=sharing
 
 Features:
 1. Search movie title, can narrow search with year of movie in brackets. e.g. The Matrix (1999)
